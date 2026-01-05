@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter }
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Button } from '@/components/ui/button'
-
+// import { socket } from '../socket.js'
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -25,6 +25,7 @@ const Login = () => {
       )
       toast.success(res.data?.message)
       dispatch(addUser(res.data.user))
+      // socket.emit("register",res.data.user._id)
       navigate('/profile')
     } catch (error) {
       const msg = error.response?.data?.message || 'Login failed'

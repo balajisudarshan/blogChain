@@ -121,3 +121,99 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* ===== Editor.js – Match Dark Inputs (Write Mode) ===== */
+
+/* Container alignment */
+.ce-block__content,
+.ce-toolbar__content {
+  max-width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Typed text */
+.ce-editor,
+.ce-paragraph {
+  color: rgba(255,255,255,0.9);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+/* Headings */
+.ce-header {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Placeholder */
+.ce-paragraph[data-placeholder]:empty::before {
+  color: rgba(255,255,255,0.4);
+}
+
+/* Toolbar buttons (+ and settings) */
+.ce-toolbar__plus,
+.ce-toolbar__settings-btn {
+  color: rgba(255,255,255,0.7);
+}
+
+.ce-toolbar__plus:hover,
+.ce-toolbar__settings-btn:hover {
+  color: #ffffff;
+}
+
+/* Add-block popover */
+.ce-popover,
+.ce-popover__container {
+  background: #020617;
+  color: #ffffff;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.ce-popover-item {
+  color: rgba(255,255,255,0.85);
+}
+
+.ce-popover-item:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Code block (while editing) */
+.ce-code__textarea {
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.9);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 0.375rem;
+}
+
+/* Selection highlight */
+.ce-block--selected .ce-block__content {
+  background: rgba(255,255,255,0.06);
+}
+
+/* Spacing between blocks */
+.ce-block {
+  margin-bottom: 0.75rem;
+}
+/* ===== FORCE DARK CODE BLOCK (Editor.js) ===== */
+
+.ce-code__textarea {
+  background-color: #020617 !important;
+  color: #e5e7eb !important;
+  border: 1px solid rgba(255,255,255,0.2) !important;
+  border-radius: 0.375rem;
+  font-family: monospace;
+  font-size: 0.9rem;
+}
+
+/* Remove white wrapper feel */
+.ce-code {
+  background: transparent !important;
+}
+
+/* Placeholder inside code block */
+.ce-code__textarea::placeholder {
+  color: rgba(255,255,255,0.4);
+}

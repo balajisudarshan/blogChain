@@ -1,9 +1,12 @@
 const express = require('express')
-const {postBlog,getAllBlogs} = require('../controller/Blog.controller')
-const auth = require('../utils/CheckToken')
+const {postBlog,getAllBlogs,getUserBlog,viewBlog} = require('../controller/Blog.controller')
+const checkToken = require('../utils/CheckToken')
 const router = express.Router()
 
-router.post("/",auth,postBlog)
-router.get("/",getAllBlogs)
+router.post("/",checkToken,postBlog)
+router.get("/",checkToken,getAllBlogs)
+router.get("/my",checkToken,getUserBlog)
+router.get('/viewblog/:id',checkToken,viewBlog)
+router.get("/user/:userId",getUserBlog)
 
 module.exports = router

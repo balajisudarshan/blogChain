@@ -3,6 +3,7 @@ import { useParams } from 'react-router'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 import ProfileCard from './modules/ProfileCard'
+import CheckUser from './utils/CheckUser'
 const PublicProfile = () => {
     const [user, setUser] = useState([])
 
@@ -24,7 +25,9 @@ const PublicProfile = () => {
 
     return (
         <div className='p-5'>
-            <ProfileCard user={user} />
+            <CheckUser>
+                <ProfileCard user={user} />
+            </CheckUser>
         </div>
     )
 }

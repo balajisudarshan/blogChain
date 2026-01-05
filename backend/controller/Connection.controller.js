@@ -2,6 +2,8 @@ const express = require('express')
 const Connection = require('../models/Connection')
 const User = require('../models/User')
 
+const Notification = require('../models/Notification')
+
 const sendConnection = async (req, res) => {
   try {
     const { toId, status } = req.params
@@ -33,7 +35,21 @@ const sendConnection = async (req, res) => {
       status: status.toLowerCase()
     })
 
+    const notification = await Notification.create({
+      userId:toId,
+      type:"connection",
+      message:"You have a new connection Request",
+      fromId
+    })
+
     await newConnection.save()
+    const io = req.app.get("io")
+    const onlineUsers = req.app.get("onlineUsers")
+    const recieverSocketId = onlineUsers.get(toId.toString())
+
+    if(recieverSocketId){
+      io.to(recieverSocketId).emit('new-notification',notification)
+    }
     res.json({ message: "Request sent successfully" })
   } catch (error) {
     res.status(500).json({ message: "Error: " + error.message })
@@ -50,11 +66,26 @@ const manageConnection = async (req, res) => {
 
     if (!connection) {
       return res.status(404).json({ message: "Connection not found" })
-
     }
 
     connection.status = status
     await connection.save()
+    if(status === 'accepted'){
+      const notification = await Notification.create({
+        userId:fromId,
+        type:'accepted',
+        message:"Your connection request was accepted",
+        fromId:toId
+      })
+
+      const io = req.app.get('io')
+      const onlineUsers = req.app.get("onlineUsers")
+      const socketId = onlineUsers.get(fromId.toString())
+
+      if(socketId){
+        io.to(socketId).emit('new-notification',notification)
+      }
+    }
 
     res.status(202).json({ message: `Connection ${status}` })
   } catch (error) {

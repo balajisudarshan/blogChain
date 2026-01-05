@@ -63,23 +63,25 @@ const NavBar = () => {
           <Link className="hover:text-primary transition-colors" to="/connections">
             Connections
           </Link>
-          <Link className="hover:text-primary transition-colors" to="/profile">
+          {/* <Link className="hover:text-primary transition-colors" to="/profile">
             Profile
-          </Link>
+          </Link> */}
           <Link className="hover:text-primary transition-colors" to="/requests">
             Requests
           </Link>
-          <Link className="hover:text-primary transition-colors" to="/requests">
+          <Link className="hover:text-primary transition-colors" to="/blogs/add-blog">
             Add Blog
           </Link>
           <Link className="hover:text-primary transition-colors" onClick={logout} >
             Logout
           </Link>
+          <Link className="hover:text-primary transition-colors" to="/profile">
 
-          <Avatar className="h-9 w-9">
-            <AvatarImage src={user?.avatar} />
-            <AvatarFallback>{initials}</AvatarFallback>
-          </Avatar>
+            <Avatar className="h-9 w-9 transition-all hover:ring-1  ring-offset-1">
+              <AvatarImage src={user?.avatar} />
+              <AvatarFallback>{initials}</AvatarFallback>
+            </Avatar>
+          </Link>
         </div> :
           <div className="hidden md:flex items-center gap-8 font-medium">
             <Link className="hover:text-accent transition-colors" to='/login'>Login</Link>

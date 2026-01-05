@@ -7,7 +7,7 @@ import { Button } from '../ui/button'
 
 const UserCard = ({item}) => {
     return (
-        <Card key={item._id} className='flex flex-col items-center p-4 rounded-xl shadow-md hover:shadow-lg transition'>
+        <Card key={item._id} className='flex flex-col items-center p-4 rounded-xl shadow-md hover:shadow-lg transition hover:-translate-y-2'>
             <Avatar className='w-16 h-16 mb-3'>
                 <AvatarImage src={item.avatar} />
                 <AvatarFallback>{item.name?.charAt(0)}</AvatarFallback>

@@ -9,6 +9,8 @@ import axios from 'axios'
 const ProfileCard = ({ user, isMine }) => {
     const [count, setCount] = useState(0)
     const [reqType, setReqType] = useState('')
+    const [postsLength,setPostsLength] = useState(0)
+    const [posts,setPosts] = useState([])
     const fetchCount = async () => {
         try {
             const res = isMine ?
@@ -21,10 +23,24 @@ const ProfileCard = ({ user, isMine }) => {
             console.log(error)
         }
     }
+    const fetchBlogs = async()=>{
+        try {
+            const res = isMine ? await axios.get("http://localhost:3000/blog/my",{withCredentials:true})
+            :await axios.get(`http://localhost:3000/blog/user/${user._id}`)
 
+            setPostsLength(res.data.length)
+            setPosts(res.data)
+            console.log("Blog",res.data)
+        } catch (error) {
+            
+        }
+    }
     useEffect(() => {
         fetchCount()
     }, [])
+    useEffect(()=>{
+        fetchBlogs()
+    },[isMine,user?._id])
 
 
     const sendRequest = async (req) => {
@@ -140,13 +156,14 @@ const ProfileCard = ({ user, isMine }) => {
                             </div>
                             <div>
                                 <p className="text-sm text-muted-foreground">Posts</p>
-                                <p>0</p>
+                                <p>{postsLength}</p>
                             </div>
                         </CardContent>
                     </Card>
 
                 </div>
             </div>
+            
         </div>
     )
 }

@@ -6,9 +6,9 @@ const blogSchema = mongoose.Schema({
         required:true,
         trim:true
     },
-    content:{
-        type:String,
-        required:true
+    content: {
+        type: mongoose.Schema.Types.Mixed,
+        required: true
     },
     tags:[{
         type:String,
@@ -24,7 +24,7 @@ const blogSchema = mongoose.Schema({
         ref:"User"
     }]
 
-},{timeStamps:true})
+},{timestamps:true})
 
 
 module.exports = mongoose.model("Blog",blogSchema)
