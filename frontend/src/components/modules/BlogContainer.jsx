@@ -1,60 +1,59 @@
 import React from "react"
-import { Avatar, AvatarImage, AvatarFallback } from "@radix-ui/react-avatar"
 import { useSelector } from "react-redux"
-import { Badge } from "../ui/badge"
 import { Link } from "react-router"
+import { Badge } from "../ui/badge"
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
 
 const BlogContainer = ({ blogs }) => {
-    const user = useSelector((store) => store.user)
+  const user = useSelector((store) => store.user)
 
-    return (
-        <div className="max-w-6xl mx-auto">
-            <div className="flex gap-5 overflow-x-auto pb-4 md:flex-wrap md:overflow-visible md:gap-6 scrollbar-hide">
-                {blogs.map((blog, index) => (
-                    <Link to={`/blog/viewBlog/${blog._id}`} className="w-full">
-                        <div
-                            key={blog._id}
-                            className={`shrink-0 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 transition cursor-pointer flex flex-col justify-between
-                        ${index === 0
-                                    ? "w-[85%] md:w-[65%]"
-                                    : index === 1
-                                        ? "w-[75%] md:w-[32%]"
-                                        : "w-[70%] md:w-[40%]"
-                                }
-                        hover:scale-[1.02]`}
-                        >
-                            <div className="flex items-center gap-4">
-                                <Avatar className="h-10 w-10 rounded-full overflow-hidden">
-                                    <AvatarImage src={blog.author?.avatar || ""} />
-                                    <AvatarFallback className="bg-white/20 text-white">
-                                        {blog.author?.name?.[0] || "U"}
-                                    </AvatarFallback>
-                                </Avatar>
+  return (
+    <div className="max-w-6xl mx-auto px-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {blogs.map((blog) => (
+          <Link
+            key={blog._id}
+            to={`/blog/viewBlog/${blog._id}`}
+            className="group"
+          >
+            <div className="h-full rounded-2xl border border-border bg-card p-6 transition hover:shadow-lg hover:-translate-y-1">
+              
+              {/* Author */}
+              <div className="flex items-center gap-3 mb-4">
+                <Avatar className="h-9 w-9">
+                  <AvatarImage src={blog.author?.avatar} />
+                  <AvatarFallback>
+                    {blog.author?.name?.[0] || "U"}
+                  </AvatarFallback>
+                </Avatar>
 
-                                <div className="flex-1 flex justify-between items-center">
-                                    <div>
-                                        <p className="text-white font-medium">
-                                            {blog.author?.name}
-                                        </p>
-                                        <p className="text-sm text-white/50">
-                                            {new Date(blog.createdAt).toLocaleDateString()}
-                                        </p>
-                                    </div>
-                                    {blog.author?._id === user?._id && (
-                                        <Badge variant="secondary">Your Blog</Badge>
-                                    )}
-                                </div>
-                            </div>
+                <div className="leading-tight">
+                  <p className="text-sm font-medium">
+                    {blog.author?.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground">
+                    {new Date(blog.createdAt).toLocaleDateString()}
+                  </p>
+                </div>
 
-                            <h2 className="text-xl font-semibold text-white mt-4 line-clamp-3">
-                                {blog.title}
-                            </h2>
-                        </div>
-                    </Link>
-                ))}
+                {blog.author?._id === user?._id && (
+                  <Badge variant="secondary" className="ml-auto">
+                    Your Blog
+                  </Badge>
+                )}
+              </div>
+
+              {/* Title */}
+              <h2 className="text-lg font-semibold leading-snug line-clamp-3 group-hover:underline">
+                {blog.title}
+              </h2>
+
             </div>
-        </div>
-    )
+          </Link>
+        ))}
+      </div>
+    </div>
+  )
 }
 
 export default BlogContainer

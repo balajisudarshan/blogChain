@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router'
 import { Badge } from './ui/badge'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from './ui/card'
-import { Avatar, AvatarImage,AvatarFallback } from './ui/avatar'
+import { Avatar, AvatarImage, AvatarFallback } from './ui/avatar'
+import { Link } from 'react-router'
 const BlogContent = () => {
   const [blogContent, setBlogContent] = useState({})
   useEffect(() => {
@@ -44,12 +45,14 @@ const BlogContent = () => {
           </div>
         </CardContent>
         <CardFooter>
-          <div className='flex items-center gap-3px'>
+          <div className='flex items-center gap-70px'>
+            <Link to={`/profile/${blogContent?.author?._id}`}>
               <Avatar>
-                <AvatarImage src={blogContent.author.avatar}/>
+                <AvatarImage src={blogContent?.author?.avatar} />
                 <AvatarFallback>CN</AvatarFallback>
               </Avatar>
-              <p>{blogContent.author.name}</p>
+              <p>{blogContent?.author?.name}</p>
+            </Link>
           </div>
         </CardFooter>
       </Card>

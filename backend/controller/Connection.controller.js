@@ -35,21 +35,21 @@ const sendConnection = async (req, res) => {
       status: status.toLowerCase()
     })
 
-    const notification = await Notification.create({
-      userId:toId,
-      type:"connection",
-      message:"You have a new connection Request",
-      fromId
-    })
+    // const notification = await Notification.create({
+    //   userId:toId,
+    //   type:"connection",
+    //   message:"You have a new connection Request",
+    //   fromId
+    // })
 
     await newConnection.save()
-    const io = req.app.get("io")
-    const onlineUsers = req.app.get("onlineUsers")
-    const recieverSocketId = onlineUsers.get(toId.toString())
+    // const io = req.app.get("io")
+    // const onlineUsers = req.app.get("onlineUsers")
+    // const recieverSocketId = onlineUsers.get(toId.toString())
 
-    if(recieverSocketId){
-      io.to(recieverSocketId).emit('new-notification',notification)
-    }
+    // if(recieverSocketId){
+    //   io.to(recieverSocketId).emit('new-notification',notification)
+    // }
     res.json({ message: "Request sent successfully" })
   } catch (error) {
     res.status(500).json({ message: "Error: " + error.message })
@@ -160,21 +160,37 @@ const getProfile = async (req,res) => {
   }
 }
 
-const getConnectionCount = async(req,res)=>{
-  const userId = req.user._id || req.params.userId;
+const getConnectionCount = async (req, res) => {
+  const userId = req.params.userId || req.user._id;
 
   try {
     const count = await Connection.countDocuments({
-      status:'accepted',
-      $or:[
-        {fromId:userId},
-        {toId:userId}
+      status: 'accepted',
+      $or: [
+        { fromId: userId },
+        { toId: userId }
       ]
-    })
+    });
 
-    return res.status(200).json({count})
+    return res.status(200).json({ count });
   } catch (error) {
-    return res.staus(500).json({message:error.message})
+    return res.status(500).json({ message: error.message });
+  }
+};
+
+
+const checkConnection = async(req,res)=>{
+  const userId = req.user.id;
+  const connId = req.params.id
+  try {
+    const existing = await Connection.find({$or:[{toId:connId,fromId:userId},{toId:userId,fromId:connId}]})
+    if(existing){
+      return res.status(200).json({existing})
+    }else{
+      return res.json(201).json({message:"No connection"})
+    }
+  } catch (error) {
+    console.log(error) 
   }
 }
-module.exports = { sendConnection, manageConnection, getRequests,getConnections,suggestions,getProfile,getConnectionCount }
+module.exports = { sendConnection, manageConnection, getRequests,getConnections,suggestions,getProfile,getConnectionCount,checkConnection }

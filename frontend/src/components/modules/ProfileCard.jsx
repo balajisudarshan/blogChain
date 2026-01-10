@@ -23,24 +23,34 @@ const ProfileCard = ({ user, isMine }) => {
             console.log(error)
         }
     }
-    const fetchBlogs = async()=>{
-        try {
-            const res = isMine ? await axios.get("http://localhost:3000/blog/my",{withCredentials:true})
-            :await axios.get(`http://localhost:3000/blog/user/${user._id}`)
+    // const fetchBlogs = async()=>{
+    //     try {
+    //         const res = isMine ? await axios.get("http://localhost:3000/blog/my",{withCredentials:true})
+    //         :await axios.get(`http://localhost:3000/blog/user/${user._id}`)
 
-            setPostsLength(res.data.length)
-            setPosts(res.data)
-            console.log("Blog",res.data)
-        } catch (error) {
+    //         setPostsLength(res.data.length)
+    //         setPosts(res.data)
+    //         console.log("Blog",res.data)
+    //     } catch (error) {
             
+    //     }
+    // }
+    const checkConnectionExist = async()=>{
+        try {
+            // const existing = await axios.get(`http://localhost:3000/connection/check/${user._id}`,{withCredentials:true})
+            // console.log("Existing"+existing);
+            console.log("User"+user.name)
+        } catch (error) {
+            console.log("Existing"+error)
         }
     }
     useEffect(() => {
         fetchCount()
+        checkConnectionExist()
     }, [])
-    useEffect(()=>{
-        fetchBlogs()
-    },[isMine,user?._id])
+    // useEffect(()=>{
+    //     fetchBlogs()
+    // },[isMine,user?._id])
 
 
     const sendRequest = async (req) => {
@@ -71,11 +81,13 @@ const ProfileCard = ({ user, isMine }) => {
                 <Card className="md:col-span-1">
                     <CardHeader className="flex items-center gap-4">
                         <Avatar>
+                            
                             <AvatarImage src={user.avatar || ""} alt={user.name + " Avatar"} />
                             <AvatarFallback>{initials}</AvatarFallback>
                         </Avatar>
                         <div>
                             <CardTitle>{user.name}</CardTitle>
+                            <CardTitle>{user.id}</CardTitle>
                             <CardDescription>{user.email}</CardDescription>
                         </div>
                     </CardHeader>

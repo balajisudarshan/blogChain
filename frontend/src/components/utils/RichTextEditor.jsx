@@ -4,9 +4,11 @@ import Header from "@editorjs/header"
 import List from "@editorjs/list"
 import LinkTool from "@editorjs/link"
 import Code from "@editorjs/code"
+import edjsHTML from "editorjs-html"
 
 const RichTextEditor = ({ setContent }) => {
     const editorRef = useRef(null)
+    const parser = edjsHTML()
 
     useEffect(() => {
         if (!editorRef.current) {
@@ -20,7 +22,10 @@ const RichTextEditor = ({ setContent }) => {
                 },
                 async onChange(api) {
                     const data = await api.saver.save()
-                    setContent(data)
+                    const html = parser.parse(data).join("")
+                    console.log("EDITOR CONTENT TYPE:", typeof html, html)
+
+                    setContent(html)
                 }
             })
 
@@ -49,7 +54,6 @@ const RichTextEditor = ({ setContent }) => {
             "
         />
     )
-
 }
 
 export default RichTextEditor

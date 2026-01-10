@@ -12,11 +12,14 @@ const PublicProfile = () => {
     useEffect(() => {
         fetchProfile()
     }, [id])
-
+    useEffect(()=>{
+        console.log("User :",user)
+    },[user])
     const fetchProfile = async () => {
         try {
             const res = await axios.get(`http://localhost:3000/connection/${id}`, { withCredentials: true })
             console.log(res.data.user)
+            console.log("Name :" + res.data.user.name )
             setUser(res.data.user)
         } catch (error) {
             console.log(error)
@@ -27,6 +30,7 @@ const PublicProfile = () => {
         <div className='p-5'>
             <CheckUser>
                 <ProfileCard user={user} />
+                
             </CheckUser>
         </div>
     )
