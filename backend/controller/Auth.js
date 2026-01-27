@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 const ValidateFields = require('../utils/ValidateFields')
 require('dotenv').config()
 const registerUser = async (req, res) => {
-    const { name, email, password,avatar,bio, skills } = req.body
+    const { name, email, password, avatar, bio, skills } = req.body
 
     try {
         ValidateFields({ name, email, password })
@@ -14,7 +14,7 @@ const registerUser = async (req, res) => {
             return res.status(400).json({ message: "User already exists" })
         }
         const hashedPassword = await bcrypt.hash(password, 10)
-        const newUser = new User({ name, email, password: hashedPassword,avatar,bio, skills })
+        const newUser = new User({ name, email, password: hashedPassword, avatar, bio, skills })
         await newUser.save()
         res.status(201).json({ message: "User created successfully" })
     } catch (error) {
@@ -38,7 +38,11 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: "Incorrect Details" })
         }
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET)
-        res.cookie('token', token)
+        res.cookie('token', token, {
+            httpOnly: true,
+            sameSite: "none",
+            secure: false
+        })
         res.status(200).json({ user })
 
     } catch (error) {

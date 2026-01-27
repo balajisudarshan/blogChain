@@ -2,6 +2,7 @@ const express = require("express")
 
 const Blog = require('../models/Blog')
 const Tag = require('../models/Tag')
+const Connection = require('../models/Connection')
 const postBlog = async (req, res) => {
     const { title, content, tags } = req.body
     try {
@@ -33,7 +34,7 @@ const getAllBlogs = async (req, res) => {
                 : c.fromId
         )
         const blogs = await Blog.find({
-            author: { $in: connectedUserIds }
+            author: { $in: [...connectedUserIds,userId] }
         })
             .populate("author", "name avatar")
             .sort({ createdAt: -1 })

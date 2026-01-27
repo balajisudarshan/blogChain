@@ -76,7 +76,7 @@ const AddBlog = () => {
                             <Label htmlFor="content" className="text-white/80">
                                 Content
                             </Label>
-                            {/* <textarea
+                            <textarea
                                 id="content"
                                 rows={6}
                                 placeholder="Write your blog content here..."
@@ -84,9 +84,9 @@ const AddBlog = () => {
                                 required
                                 onChange={(e) => setContent(e.target.value)}
                                 className="w-full rounded-md bg-white/10 border border-white/20 p-3 text-white placeholder:text-white/40 focus:outline-none focus:ring-1 focus:ring-white/30"
-                            /> */}
-                            <RichTextEditor setContent={setContent} 
                             />
+                            {/* <RichTextEditor setContent={setContent} 
+                            /> */}
 
 
                         </div>

@@ -15,8 +15,10 @@ const AllBlogs = () => {
           withCredentials: true
         })
         setBlogs(res.data)
+        console.log(res)
       } catch (error) {
         setBlogs([])
+        console.log(error)
       } finally {
         setLoading(false)
       }

@@ -7,7 +7,8 @@ const blogSchema = mongoose.Schema({
         trim:true
     },
     content: {
-        type: mongoose.Schema.Types.Mixed,
+        // type: mongoose.Schema.Types.Mixed,
+        type:String,
         required: true
     },
     tags:[{
