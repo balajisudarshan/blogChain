@@ -50,6 +50,7 @@ app.set('onlineUsers',onlineUsers)
 
 
 app.use(cors({
+  origin: "http://51.20.6.60",
     credentials: true,
 }))
 
