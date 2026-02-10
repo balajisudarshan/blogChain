@@ -10,7 +10,7 @@ const DiscoverPeople = () => {
 
     const fetchPeople = async () => {
         try {
-            const res = await axios.get('http://localhost:3000/connection/people/suggestions', { withCredentials: true })
+            const res = await axios.get('http://http://51.20.6.60/api/connection/people/suggestions', { withCredentials: true })
             setSuggestedPeople(res.data.people)
         } catch (error) {
             console.log(error)
@@ -23,7 +23,7 @@ const DiscoverPeople = () => {
 
     // const handleConnect = async () => {
     //     try {
-    //         const res = await axios.post('http://localhost:3000/connection/like/692bcd0bbaef054286ef3d64')
+    //         const res = await axios.post('http://http://51.20.6.60/api/connection/like/692bcd0bbaef054286ef3d64')
     //     } catch (error) {
 
     //     }
