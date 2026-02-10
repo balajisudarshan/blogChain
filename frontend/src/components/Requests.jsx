@@ -15,7 +15,7 @@ const Requests = () => {
   // const [resStatus, setResStatus] = useState('')
 
   const fetchRequets = async () => {
-    const res = await axios.get("http://http://51.20.6.60/api/connection/getRequests", {
+    const res = await axios.get("http://51.20.6.60/api/connection/getRequests", {
       withCredentials: true,
     })
     setRequests(res.data.filteredConnections)
@@ -24,7 +24,7 @@ const Requests = () => {
   const handleRequest = async (resStatus) => {
     console.log(resStatus)
     try {
-      const res = await axios.post(`http://http://51.20.6.60/api/connection/connections/${resStatus}/${requestedUser.fromId._id}`, {}, { withCredentials: true })
+      const res = await axios.post(`http://51.20.6.60/api/connection/connections/${resStatus}/${requestedUser.fromId._id}`, {}, { withCredentials: true })
       console.log(res)
       toast(res.data.message)
     } catch (error) {

@@ -19,7 +19,7 @@ const Login = () => {
   async function submitForm() {
     try {
       const res = await axios.post(
-        'http://http://51.20.6.60/api/api/auth/login',
+        'http://51.20.6.60/api/api/auth/login',
         { email, password },
         { withCredentials: true }
       )

@@ -14,9 +14,9 @@ const ProfileCard = ({ user, isMine }) => {
     const fetchCount = async () => {
         try {
             const res = isMine ?
-                await axios.get('http://http://51.20.6.60/api/connection/count', { withCredentials: true })
+                await axios.get('http://51.20.6.60/api/connection/count', { withCredentials: true })
                 :
-                await axios.get(`http://http://51.20.6.60/api/connection/count/${user._id}`, { withCredentials: true })
+                await axios.get(`http://51.20.6.60/api/connection/count/${user._id}`, { withCredentials: true })
             console.log("res", res.data.count)
             setCount(res.data.count)
         } catch (error) {
@@ -25,8 +25,8 @@ const ProfileCard = ({ user, isMine }) => {
     }
     // const fetchBlogs = async()=>{
     //     try {
-    //         const res = isMine ? await axios.get("http://http://51.20.6.60/api/blog/my",{withCredentials:true})
-    //         :await axios.get(`http://http://51.20.6.60/api/blog/user/${user._id}`)
+    //         const res = isMine ? await axios.get("http://51.20.6.60/api/blog/my",{withCredentials:true})
+    //         :await axios.get(`http://51.20.6.60/api/blog/user/${user._id}`)
 
     //         setPostsLength(res.data.length)
     //         setPosts(res.data)
@@ -37,7 +37,7 @@ const ProfileCard = ({ user, isMine }) => {
     // }
     const checkConnectionExist = async()=>{
         try {
-            // const existing = await axios.get(`http://http://51.20.6.60/api/connection/check/${user._id}`,{withCredentials:true})
+            // const existing = await axios.get(`http://51.20.6.60/api/connection/check/${user._id}`,{withCredentials:true})
             // console.log("Existing"+existing);
             console.log("User"+user.name)
         } catch (error) {
@@ -57,7 +57,7 @@ const ProfileCard = ({ user, isMine }) => {
         try {
             console.log(req)
             console.log(user._id)
-            const res = await axios.post(`http://http://51.20.6.60/api/connection/${req}/${user._id}`, {}, { withCredentials: true })
+            const res = await axios.post(`http://51.20.6.60/api/connection/${req}/${user._id}`, {}, { withCredentials: true })
             console.log(res)
             setReqType(req)
         } catch (error) {
