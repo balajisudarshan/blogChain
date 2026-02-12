@@ -28,7 +28,7 @@ const AddBlog = () => {
     useEffect(() => {
         const fetchTags = async () => {
 
-            const res = await axios.get('http://51.20.6.60/api/tags')
+            const res = await axios.get('http://51.20.6.6/api/tags')
             setAllTags(res.data.tags)
             console.log("TAGS", res.data.tags)
         }
@@ -38,7 +38,7 @@ const AddBlog = () => {
 
     const sendData = async () => {
         try {
-            const res = await axios.post('http://51.20.6.60/api/blog', { title, content, tags }, { withCredentials: true })
+            const res = await axios.post('http://51.20.6.6/api/blog', { title, content, tags }, { withCredentials: true })
             console.log(res)
         } catch (error) {
             console.log(error)
