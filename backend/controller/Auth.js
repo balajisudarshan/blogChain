@@ -38,11 +38,14 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: "Incorrect Details" })
         }
         const token = jwt.sign({ id: user._id, email: user.email }, process.env.JWT_SECRET)
+
         res.cookie('token', token, {
             httpOnly: true,
-            sameSite: "none",
-            secure: false
+            sameSite: "lax",
+            secure: false,
+            path: "/",
         })
+
         res.status(200).json({ user })
 
     } catch (error) {

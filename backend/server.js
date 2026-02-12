@@ -50,8 +50,8 @@ app.set('onlineUsers',onlineUsers)
 
 
 app.use(cors({
-  origin: "http://51.20.6.60/api",
-    credentials: true,
+  origin: "http://localhost:5173",
+  credentials: true,
 }))
 
 app.get('/test', (req, res) => {
@@ -59,7 +59,7 @@ app.get('/test', (req, res) => {
 })
 app.use(express.json())
 app.use(cookieParser())
-app.use('/api/auth', AuthRoute)
+app.use('/auth', AuthRoute)
 app.use('/me/profile', ProfileRoute)
 app.use('/connection', ConnectionRoute)
 app.use('/blog',BlogRoute)

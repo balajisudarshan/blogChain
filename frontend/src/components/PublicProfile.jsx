@@ -4,36 +4,39 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import ProfileCard from './modules/ProfileCard'
 import CheckUser from './utils/CheckUser'
+
 const PublicProfile = () => {
-    const [user, setUser] = useState([])
+  const [user, setUser] = useState([])
 
-    const { id } = useParams()
+  const { id } = useParams()
 
-    useEffect(() => {
-        fetchProfile()
-    }, [id])
-    useEffect(()=>{
-        console.log("User :",user)
-    },[user])
-    const fetchProfile = async () => {
-        try {
-            const res = await axios.get(`http://51.20.6.60/api/connection/${id}`, { withCredentials: true })
-            console.log(res.data.user)
-            console.log("Name :" + res.data.user.name )
-            setUser(res.data.user)
-        } catch (error) {
-            console.log(error)
-        }
+  useEffect(() => {
+    fetchProfile()
+  }, [id])
+
+  useEffect(() => {
+    console.log("User :", user)
+  }, [user])
+
+  const fetchProfile = async () => {
+    try {
+      const res = await axios.get(`http://localhost:3000/connection/${id}`, { withCredentials: true })
+      console.log(res.data.user)
+      console.log("Name :" + res.data.user.name)
+      setUser(res.data.user)
+    } catch (error) {
+      console.log(error)
     }
+  }
 
-    return (
-        <div className='p-5'>
-            <CheckUser>
-                <ProfileCard user={user} />
-                
-            </CheckUser>
-        </div>
-    )
+  return (
+    <div className='p-5'>
+      <CheckUser>
+        <ProfileCard user={user} />
+      </CheckUser>
+    </div>
+  )
 }
 
 export default PublicProfile
+

@@ -11,7 +11,7 @@ const AllBlogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await axios.get("http://51.20.6.60/api/blog", {
+        const res = await axios.get("http://localhost:3000/blog", {
           withCredentials: true
         })
         setBlogs(res.data)

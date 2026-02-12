@@ -8,6 +8,7 @@ import Modal from "./Modal"
 import { toast } from "sonner"
 import { Link } from "react-router"
 import CheckUser from "./utils/CheckUser"
+
 const Requests = () => {
   const [requests, setRequests] = useState([])
   const [requestedUser, setRequestedUser] = useState(null)
@@ -15,7 +16,7 @@ const Requests = () => {
   // const [resStatus, setResStatus] = useState('')
 
   const fetchRequets = async () => {
-    const res = await axios.get("http://51.20.6.60/api/connection/getRequests", {
+    const res = await axios.get("http://localhost:3000/connection/getRequests", {
       withCredentials: true,
     })
     setRequests(res.data.filteredConnections)
@@ -24,14 +25,18 @@ const Requests = () => {
   const handleRequest = async (resStatus) => {
     console.log(resStatus)
     try {
-      const res = await axios.post(`http://51.20.6.60/api/connection/connections/${resStatus}/${requestedUser.fromId._id}`, {}, { withCredentials: true })
+      const res = await axios.post(
+        `http://localhost:3000/connection/connections/${resStatus}/${requestedUser.fromId._id}`,
+        {},
+        { withCredentials: true }
+      )
       console.log(res)
       toast(res.data.message)
     } catch (error) {
       toast.error(error.response?.data?.message || error.message)
     }
-
   }
+
   useEffect(() => {
     fetchRequets()
   }, [])
@@ -68,15 +73,13 @@ const Requests = () => {
                   const initials =
                     from.name && typeof from.name === "string"
                       ? from.name
-                        .split(" ")
-                        .map((n) => n[0])
-                        .join("")
-                        .toUpperCase()
+                          .split(" ")
+                          .map((n) => n[0])
+                          .join("")
+                          .toUpperCase()
                       : "U"
 
                   return (
-
-
                     <li
                       key={request._id}
                       className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-card p-5 rounded-xl shadow-sm hover:shadow-md transition-all"
@@ -113,13 +116,21 @@ const Requests = () => {
                       </Link>
 
                       <div className="flex gap-3 w-full sm:w-auto">
-                        <Button onClick={() => { setRequestedUser(request), setStatus('accept') }}
+                        <Button
+                          onClick={() => {
+                            setRequestedUser(request)
+                            setStatus('accept')
+                          }}
                           size="sm"
                           className="flex-1 sm:flex-initial font-medium shadow-sm hover:shadow-md cursor-pointer"
                         >
                           Accept
                         </Button>
-                        <Button onClick={() => { setRequestedUser(request), setStatus('reject') }}
+                        <Button
+                          onClick={() => {
+                            setRequestedUser(request)
+                            setStatus('reject')
+                          }}
                           size="sm"
                           variant="destructive"
                           className="flex-1 sm:flex-initial font-medium shadow-sm hover:shadow-md cursor-pointer"
@@ -128,7 +139,6 @@ const Requests = () => {
                         </Button>
                       </div>
                     </li>
-
                   )
                 })}
               </ul>
@@ -145,30 +155,52 @@ const Requests = () => {
 
                   <CardContent className="space-y-6 py-6">
                     <p className="text-center text-muted-foreground">
-                      Do you want to <span className={status === "accept"
-                        ? "text-green-500 font-semibold"
-                        : "text-red-500 font-semibold"}>{status}</span>
-                      <span className="font-bold underline-offset-5 underline ml-1">{requestedUser.fromId.name}</span>  Request?
+                      Do you want to{' '}
+                      <span
+                        className={
+                          status === "accept"
+                            ? "text-green-500 font-semibold"
+                            : "text-red-500 font-semibold"
+                        }
+                      >
+                        {status}
+                      </span>
+                      <span className="font-bold underline-offset-5 underline ml-1">
+                        {requestedUser.fromId.name}
+                      </span>{' '}
+                      Request?
                     </p>
 
                     <div className="flex items-center justify-center gap-4">
-                      <Button className="px-6 cursor-pointer" onClick={() => {
-                        const finalStatus = status === "accept" ? "accepted" : "rejected"
-                        handleRequest(finalStatus)
-                      }}>Yes</Button>
-                      <Button variant="secondary" onClick={() => { setRequestedUser(null) }} className="px-6">Close</Button>
+                      <Button
+                        className="px-6 cursor-pointer"
+                        onClick={() => {
+                          const finalStatus = status === "accept" ? "accepted" : "rejected"
+                          handleRequest(finalStatus)
+                        }}
+                      >
+                        Yes
+                      </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={() => {
+                          setRequestedUser(null)
+                        }}
+                        className="px-6"
+                      >
+                        Close
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
               </Modal>
             </>
-          )
-          }
-
+          )}
         </div>
-      </div >
+      </div>
     </CheckUser>
   )
 }
 
 export default Requests
+

@@ -15,7 +15,7 @@ const Register = () => {
   const [bio, setBio] = useState('')
   const [skillInput, setSkillInput] = useState('')
   const [skills, setSkills] = useState([])
-  const baseUrl = 'http://http://51.20.6.60/api'
+  const baseUrl = 'http://localhost:3000'
 
   const handleSkillInput = (e) => {
     const value = e.target.value
@@ -26,7 +26,7 @@ const Register = () => {
 
   const handleSubmit = async () => {
     try {
-      const res = await axios.post(`${baseUrl}/api/auth/register`, {
+      const res = await axios.post(`${baseUrl}/auth/register`, {
         name,
         email,
         password,
