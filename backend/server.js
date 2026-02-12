@@ -50,7 +50,7 @@ app.set('onlineUsers',onlineUsers)
 
 
 app.use(cors({
-  origin: "http://localhost:5173",
+  origin: "http://51.20.5.6",
   credentials: true,
 }))
 
