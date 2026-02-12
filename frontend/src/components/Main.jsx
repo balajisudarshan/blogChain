@@ -15,7 +15,7 @@ const Main = () => {
     if(user){
       return
     }
-    const res =await axios.get('http://localhost:3000/me/profile',{withCredentials:true})
+    const res =await axios.get('http://51.20.6.60/api/me/profile',{withCredentials:true})
     dispatch(addUser(res.data.user))
     console.log(res.data.user)
     console.log("User fetching")

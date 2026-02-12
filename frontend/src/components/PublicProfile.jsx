@@ -20,7 +20,7 @@ const PublicProfile = () => {
 
   const fetchProfile = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/connection/${id}`, { withCredentials: true })
+      const res = await axios.get(`http://51.20.6.60/api/connection/${id}`, { withCredentials: true })
       console.log(res.data.user)
       console.log("Name :" + res.data.user.name)
       setUser(res.data.user)
