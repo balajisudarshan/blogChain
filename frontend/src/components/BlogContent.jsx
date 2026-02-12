@@ -11,7 +11,7 @@ const BlogContent = () => {
   useEffect(() => {
     const fetchBlogContent = async () => {
       try {
-        const res = await axios.get(`http://51.20.6.6/api/blog/viewblog/${id}`, { withCredentials: true })
+        const res = await axios.get(`http://51.20.5.6/api/blog/viewblog/${id}`, { withCredentials: true })
         console.log(res.data.result)
         setBlogContent(res.data.result)
       } catch (error) {
