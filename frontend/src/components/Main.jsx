@@ -15,7 +15,7 @@ const Main = () => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await axios.get('http://localhost:3000/me/profile', { withCredentials: true })
+        const res = await axios.get('http://51.20.5.6/api/me/profile', { withCredentials: true })
         dispatch(addUser(res.data.user))
       } catch {
         dispatch(removeUser())

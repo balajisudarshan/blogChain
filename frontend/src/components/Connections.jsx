@@ -10,7 +10,7 @@ const Connections = () => {
   }, [])
   const fetchPeople = async () => {
     try {
-      const res = await axios.get('http://localhost:3000/connection/getConnections', { withCredentials: true })
+      const res = await axios.get('http://51.20.5.6/api/connection/getConnections', { withCredentials: true })
       console.log(res.data.otherIds)
       setPeople(res.data.otherIds)
     } catch (error) {
