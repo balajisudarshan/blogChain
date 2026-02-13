@@ -19,14 +19,13 @@ const Login = () => {
   async function submitForm() {
     try {
       const res = await axios.post(
-        'http://51.20.5.6/api/auth/login',
+        'http://localhost:3000/auth/login',
         { email, password },
         { withCredentials: true }
       )
       toast.success(res.data?.message)
       dispatch(addUser(res.data.user))
-      // socket.emit("register",res.data.user._id)
-      navigate('/profile')
+      navigate('/')
     } catch (error) {
       const msg = error.response?.data?.message || 'Login failed'
       toast.error(msg)
