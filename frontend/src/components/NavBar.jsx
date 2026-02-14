@@ -105,6 +105,9 @@ const NavBar = () => {
                 <Link to="/blogs" onClick={() => setOpen(false)}>
                   Blogs
                 </Link>
+                <Link to="/blogs/add-blog" onClick={() => setOpen(false)}>
+                  Add Blogs
+                </Link>
               </div>
 
               <Link to="/connections" onClick={() => setOpen(false)}>
