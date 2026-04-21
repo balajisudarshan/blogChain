@@ -28,7 +28,14 @@ const Main = () => {
   }, [dispatch])
 
   if (authLoading) {
-    return <LoadingCard message="Checking authentication..." />
+
+  }
+
+
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">Loading...</p>
+
+
   }
 
   const isAuthRoute = location.pathname === '/login' || location.pathname === '/register'

@@ -10,7 +10,7 @@ const DiscoverPeople = () => {
 
     const fetchPeople = async () => {
         try {
-            const res = await axios.get('http://51.20.5.6/api/connection/people/suggestions', { withCredentials: true })
+            const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/connection/people/suggestions`, { withCredentials: true })
             setSuggestedPeople(res.data.people)
         } catch (error) {
             console.log(error)

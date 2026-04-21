@@ -15,7 +15,7 @@ const Register = () => {
   const [bio, setBio] = useState('')
   const [skillInput, setSkillInput] = useState('')
   const [skills, setSkills] = useState([])
-  const baseUrl = 'http://51.20.5.6/api'
+  const baseUrl = import.meta.env.VITE_API_BASE_URL
 
   const handleSkillInput = (e) => {
     const value = e.target.value

@@ -5,7 +5,6 @@ import axios from "axios";
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { addUser, removeUser } from "../../slice/userSlice";
-import { LoadingCard } from "./ui/loading";
 
 const Main = () => {
   const dispatch = useDispatch()
@@ -28,7 +27,11 @@ const Main = () => {
   }, [dispatch])
 
   if (authLoading) {
-    return <LoadingCard message="Checking authentication..." />
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    )
   }
 
   const isAuthRoute = location.pathname === '/login' || location.pathname === '/register'

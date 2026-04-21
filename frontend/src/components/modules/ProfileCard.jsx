@@ -14,8 +14,8 @@ const ProfileCard = ({ user, isMine }) => {
     const fetchCount = async () => {
         try {
             const res = isMine
-                ? await axios.get('http://51.20.5.6/api/connection/count', { withCredentials: true })
-                : await axios.get(`http://51.20.5.6/api/connection/count/${user._id}`, { withCredentials: true })
+                ? await axios.get(`${import.meta.env.VITE_API_BASE_URL}/connection/count`, { withCredentials: true })
+                : await axios.get(`${import.meta.env.VITE_API_BASE_URL}/connection/count/${user._id}`, { withCredentials: true })
             console.log("res", res.data.count)
             setCount(res.data.count)
         } catch (error) {
@@ -56,7 +56,7 @@ const ProfileCard = ({ user, isMine }) => {
         try {
             console.log(req)
             console.log(user._id)
-            const res = await axios.post(`http://51.20.5.6/api/connection/${req}/${user._id}`, {}, { withCredentials: true })
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/connection/${req}/${user._id}`, {}, { withCredentials: true })
             console.log(res)
             setReqType(req)
         } catch (error) {

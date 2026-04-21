@@ -78,15 +78,8 @@ const Login = () => {
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={isLoading}>
-              {isLoading ? (
-                <>
-                  <LoadingSpinner size="sm" className="mr-2" />
-                  Logging in...
-                </>
-              ) : (
-                'Login'
-              )}
+            <Button type="submit" className="w-full">
+              Login
             </Button>
           </form>
         </CardContent>
