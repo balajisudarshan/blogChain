@@ -3,8 +3,11 @@ import { useSelector } from "react-redux"
 import { Link } from "react-router"
 import { Badge } from "../ui/badge"
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
+import { Delete, DeleteIcon, Trash } from "lucide-react"
 
-const BlogContainer = ({ blogs }) => {
+
+
+const BlogContainer = ({ blogs, onDelete }) => {
   const user = useSelector((store) => store.user)
 
   return (
@@ -17,7 +20,7 @@ const BlogContainer = ({ blogs }) => {
             className="group"
           >
             <div className="h-full rounded-2xl border border-border bg-card p-6 transition hover:shadow-lg hover:-translate-y-1">
-              
+
               {/* Author */}
               <div className="flex items-center gap-3 mb-4">
                 <Avatar className="h-9 w-9">
@@ -37,9 +40,21 @@ const BlogContainer = ({ blogs }) => {
                 </div>
 
                 {blog.author?._id === user?._id && (
-                  <Badge variant="secondary" className="ml-auto">
-                    Your Blog
-                  </Badge>
+                  <div className="flex items-center justify-between gap-2">
+                    <Badge variant="secondary">
+                      Your Blog
+                    </Badge>
+
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        onDelete(blog._id)
+                      }}
+                      className="p-2 rounded-md hover:bg-red-500/10 transition">
+                      <Trash className="w-5 h-5 text-red-500" />
+                    </button>
+                  </div>
                 )}
               </div>
 

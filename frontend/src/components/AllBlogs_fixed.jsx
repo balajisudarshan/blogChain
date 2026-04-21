@@ -17,6 +17,7 @@ const AllBlogs = () => {
         const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/blog`, {
           withCredentials: true
         })
+        
         setBlogs(res.data)
       } catch (error) {
         setError('Failed to load blogs')

@@ -3,6 +3,7 @@ import axios from "axios"
 import BlogContainer from "./modules/BlogContainer"
 import CheckUser from "./utils/CheckUser"
 import { Card, CardContent } from "./ui/card"
+import { toast } from "sonner"
 
 const AllBlogs = () => {
   const [blogs, setBlogs] = useState([])
@@ -27,6 +28,24 @@ const AllBlogs = () => {
     }
     fetchBlogs()
   }, [])
+
+  const deleteBlog = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this blog?")) return
+
+    await toast.promise(
+      axios.delete(
+        `${import.meta.env.VITE_API_BASE_URL}/blog/${id}`,
+        { withCredentials: true }
+      ),
+      {
+        loading: "Deleting blog...",
+        success: "Blog deleted 🗑️",
+        error: "Failed to delete ❌"
+      }
+    )
+
+    setBlogs(prev => prev.filter(blog => blog._id !== id))
+  }
 
   if (loading) {
     return (
@@ -99,7 +118,7 @@ const AllBlogs = () => {
         <h1 className="text-3xl font-bold text-center text-white mb-12">
           All Blogs
         </h1>
-        <BlogContainer blogs={blogs} />
+        <BlogContainer blogs={blogs} onDelete={deleteBlog} />
       </div>
     </CheckUser>
   )

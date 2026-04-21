@@ -77,4 +77,14 @@ const viewBlog = async (req, res) => {
         console.log(error)
     }
 }
-module.exports = { postBlog, getAllBlogs, getUserBlog, viewBlog }
+
+const deleteBlog = async (req, res) => {
+    try {
+        const blogId = req.params.id
+        await Blog.findByIdAndDelete(blogId)
+        return res.json({ message: "Blog deleted successfully" })
+    } catch (error) {
+        console.log(error)
+    }
+}
+module.exports = { postBlog, getAllBlogs, getUserBlog, viewBlog, deleteBlog }
