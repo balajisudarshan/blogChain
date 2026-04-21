@@ -14,7 +14,7 @@ import { useState } from "react"
 import CheckUser from "./utils/CheckUser"
 import axios from "axios"
 import RichTextEditor from "./utils/RichTextEditor"
-
+import { toast } from "react-hot-toast"
 
 
 const AddBlog = () => {
@@ -24,7 +24,7 @@ const AddBlog = () => {
     const [tags, setTags] = useState([])
     const [allTags, setAllTags] = useState([])
     const [filteredTags, setFilteredTags] = useState([])
-
+    const [loading, setLoading] = useState(false)
     useEffect(() => {
         const fetchTags = async () => {
 
@@ -38,10 +38,19 @@ const AddBlog = () => {
 
     const sendData = async () => {
         try {
+            setLoading(true)
             const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/blog`, { title, content, tags }, { withCredentials: true })
+            toast.success("Blog published successfully 🚀")
+
+            setTitle('')
+            setContent('')
+            setTags([])
             console.log(res)
         } catch (error) {
             console.log(error)
+            toast.error("Failed to publish blog ❌")
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -159,8 +168,8 @@ const AddBlog = () => {
                     </CardContent>
 
                     <CardFooter>
-                        <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={sendData}>
-                            Publish Blog
+                        <Button className="w-full bg-blue-600 hover:bg-blue-700" onClick={sendData} disabled={loading}>
+                            {loading ? "Publishing..." : "Publish Blog"}
                         </Button>
                     </CardFooter>
                 </Card>
