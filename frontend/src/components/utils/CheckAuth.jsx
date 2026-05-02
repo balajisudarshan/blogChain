@@ -6,7 +6,7 @@ const CheckAuth = ({children}) => {
 
 
     if(!user){
-        return <Navigate to='/login'/>
+        return <Navigate to='/'/>
     }
 
   return (

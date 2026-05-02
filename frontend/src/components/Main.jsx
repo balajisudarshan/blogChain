@@ -31,11 +31,11 @@ const Main = () => {
     return <LoadingCard message="Checking authentication..." />
   }
 
-  const isAuthRoute = location.pathname === '/login' || location.pathname === '/register'
-  if (!user && !isAuthRoute) {
+  const isPublicRoute = location.pathname === '/' || location.pathname === '/login' || location.pathname === '/register'
+  if (!user && !isPublicRoute) {
     return <Navigate to="/login" replace />
   }
-  if (user && isAuthRoute) {
+  if (user && (location.pathname === '/login' || location.pathname === '/register')) {
     return <Navigate to="/" replace />
   }
 

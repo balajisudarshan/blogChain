@@ -17,6 +17,7 @@ import Connections from './components/Connections'
 import AllBlogs from './components/AllBlogs'
 import AddBlog from './components/AddBlog'
 import BlogContent from './components/BlogContent'
+import HomeScreen from './components/HomeScreen'
 const App = () => {
 
 
@@ -25,7 +26,7 @@ const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Main />}>
-              <Route path='/' element={<Feed />} />
+              <Route path='/' element={<HomeScreen />} />
               <Route path='/profile' element={<Profile />} />
               <Route path='/login' element={<Login />} />
               <Route path='/register' element={<Register />} />
